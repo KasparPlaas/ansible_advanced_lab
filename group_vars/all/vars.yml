@@ -1,0 +1,21 @@
+# Kõikidele serveritele ühised seadistused
+app_name: "advanced-lamp"
+app_version: "1.0.0"
+admin_email: "admin@company.com"
+
+# OS-spetsiifilised paketid (dünaamilised)
+# Use static defaults to ensure the variable is defined during early evaluation
+apache_package: "apache2"
+mysql_package: "mysql-server"
+
+# Keskkonna sõltuvad seadistused
+app_env: "development"
+backup_enabled: "{{ app_env == 'production' }}"
+monitoring_enabled: "{{ app_env == 'production' }}"
+log_level: "{% if debug_mode %}DEBUG{% else %}INFO{% endif %}"
+# Lisage vault viited
+mysql_root_password: "{{ vault_mysql_root_password }}"
+mysql_app_password: "{{ vault_mysql_app_password }}"
+ssl_cert_path: "{{ vault_ssl_cert_path }}"
+ssl_key_path: "{{ vault_ssl_key_path }}"
+admin_password: "{{ vault_admin_password }}"
